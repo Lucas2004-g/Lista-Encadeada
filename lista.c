@@ -98,5 +98,55 @@ typedef struct _linkedlist{
         
     }
       printf ("NULL");
+      printf ("\n");
  }
+ //procedimento pra remover no começo da lista.
+ void Linkedlist_remove(Linkedlist *L, int val){
+  if (!Linkedlist_isempty(L)){
+  //caso 1 o elemento estar na cabeça da lista!
+   if (L->begin->valor == val){
+    //crio uma variavel aleatoria pra ter acesso no segundo nó da lista.
+        SimpleNode *pos = L->begin;
+        if (L->begin == L->end){
+          L->end == NULL;
+        }
+        //faço a minha cabeça da lista apontar pro próximo no da lista.
+        L->begin =  L->begin->next;
+        
+       
+        //apago o segundo nó dando um free nele
+        free(pos);
+     }
+      else{
+       
+       SimpleNode *pos = L->begin->next;
+       SimpleNode *prev = L->begin;
+       //lista estiver diferente do valor apontado por pos e o pos não estiver nulo
+       //avance os ponteiros auxiliares para os proximos elementos da lista
+       while (pos->valor != val && pos !=NULL){
+         //ponteiro prev vai apontar pra onde pos ta apontando
+         prev = pos;
+         //ou eu simplesmente posso fazer
+         //prev = prev->next; (Ja que o prex next é o mesmo valor que ele o atual pos está apontando. entao da basicamente na mesma)
+         //ponteiro pos vai apontar pra onde o laço next está apontando
+         pos = pos->next;
+        } 
+        //se o valor desejado foi encontrado:
+         if (pos !=NULL){
+          //ponteiro next de prev vai receber o ponteiro pos next 
+          prev->next = pos->next;
+
+          if (pos->next == NULL){
+            L->end = prev;
+          }
+          //e o ponteiro pos pode ser removido
+          free(pos); 
+        }
+      }
+    }
+ }
+
+
+ 
+
 
